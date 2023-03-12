@@ -51,6 +51,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.allowChipEditing = false,
     this.focusNode,
     this.initialSuggestions,
+    this.showKeyboard = true,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
 
@@ -73,8 +74,9 @@ class ChipsInput<T> extends StatefulWidget {
   final Brightness keyboardAppearance;
   final bool autofocus;
   final bool allowChipEditing;
-  final FocusNode? focusNode;
-  final List<T>? initialSuggestions;
+  final FocusNode focusNode;
+  final List<T> initialSuggestions;
+  final bool showKeyboard;
 
   // final Color cursorColor;
 
@@ -155,11 +157,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   }
 
   void _handleFocusChanged() {
-    if (_effectiveFocusNode.hasFocus) {
-      _openInputConnection();
-      _suggestions = widget.initialSuggestions
-          ?.where((r) => !_chips.contains(r))
-          ?.toList(growable: false);
+    if (_focusNode.hasFocus) {
+      if (widget.showKeyboard) {
+        _openInputConnection();
+      }
       _suggestionsBoxController.open();
     } else {
       _closeInputConnectionIfNeeded();
@@ -264,6 +265,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
       widget.onChanged(_chips.toList(growable: false));
     } else {
       _suggestionsBoxController.close();
+    }
+    widget.onChanged(_chips.toList(growable: false));
+    if (!widget.showKeyboard) {
+      _focusNode.unfocus();
     }
   }
 

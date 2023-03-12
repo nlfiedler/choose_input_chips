@@ -346,18 +346,26 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     }
   }
 
-  void _updateTextInputState({replaceText = false, putText = ''}) {
+  void _updateTextInputState({bool replaceText = false, String putText = ''}) {
     if (replaceText || putText != '') {
       final updatedText =
           String.fromCharCodes(_chips.map((_) => kObjectReplacementChar)) +
-              (replaceText ? '' : _value.normalCharactersText) +
+              "${replaceText ? '' : _value.normalCharactersText}" +
               putText;
-      setState(() => _value = _value.copyWith(
-            text: updatedText,
-            selection: TextSelection.collapsed(offset: updatedText.length),
-            //composing: TextRange(start: 0, end: text.length),
-            composing: TextRange.empty,
-          ));
+      setState(() {
+        final textLength = updatedText.characters.length;
+        final replacedLength = _chips.length;
+        _value = _value.copyWith(
+          text: updatedText,
+          selection: TextSelection.collapsed(offset: textLength),
+          composing: (Platform.isIOS || replacedLength == textLength)
+              ? TextRange.empty
+              : TextRange(
+                  start: replacedLength,
+                  end: textLength,
+                ),
+        );
+      });
     }
     _closeInputConnectionIfNeeded(); //Hack for #34 (https://github.com/danvick/flutter_chips_input/issues/34#issuecomment-684505282). TODO: Find permanent fix
     _textInputConnection ??= TextInput.attach(this, textInputConfiguration);
@@ -454,9 +462,21 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
       ),
     );
 
-    return NotificationListener<SizeChangedLayoutNotification>(
+    return RawKeyboardListener(
+      focusNode: _focusNode, // or FocusNode()
+      onKey: (event) {
+        final str = currentTextEditingValue.text;
+        if (event.runtimeType.toString() == 'RawKeyDownEvent' &&
+            event.logicalKey == LogicalKeyboardKey.backspace &&
+            str.isNotEmpty) {
+          final sd = str.substring(0, str.length - 1);
+          updateEditingValue(TextEditingValue(
+              text: sd, selection: TextSelection.collapsed(offset: sd.length)));
+        }
+      },
+      child: NotificationListener<SizeChangedLayoutNotification>(
       onNotification: (SizeChangedLayoutNotification val) {
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
+        WidgetsBinding.instance?.addPostFrameCallback((_) async {
           _suggestionsBoxController.overlayEntry?.markNeedsBuild();
         });
         return true;
@@ -487,6 +507,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
             ),
           ],
         ),
+      ),
       ),
     );
   }

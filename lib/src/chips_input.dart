@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'suggestions_box_controller.dart';
 import 'text_cursor.dart';
@@ -297,7 +298,14 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     Future.delayed(const Duration(milliseconds: 300), () {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         final renderBox = context.findRenderObject() as RenderBox;
-        await Scrollable.of(context)?.position.ensureVisible(renderBox);
+        await Scrollable.of(context)
+            ?.position
+            .ensureVisible(renderBox)
+            .then((_) async {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _suggestionsBoxController.overlayEntry?.markNeedsBuild();
+          });
+        });
       });
     });
   }
@@ -367,9 +375,13 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         );
       });
     }
-    _closeInputConnectionIfNeeded(); //Hack for #34 (https://github.com/danvick/flutter_chips_input/issues/34#issuecomment-684505282). TODO: Find permanent fix
+    if (!kIsWeb) {
+      _closeInputConnectionIfNeeded(); //Hack for #34 (https://github.com/danvick/flutter_chips_input/issues/34#issuecomment-684505282). TODO: Find permanent fix
+    }
     _textInputConnection ??= TextInput.attach(this, textInputConfiguration);
-    _textInputConnection?.setEditingState(_value);
+    if (_textInputConnection?.attached ?? false) {
+      _textInputConnection?.setEditingState(_value);
+    }
     _textInputConnection?.show();
   }
 
@@ -476,39 +488,39 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         }
       },
       child: NotificationListener<SizeChangedLayoutNotification>(
-      onNotification: (SizeChangedLayoutNotification val) {
-        WidgetsBinding.instance?.addPostFrameCallback((_) async {
-          _suggestionsBoxController.overlayEntry?.markNeedsBuild();
-        });
-        return true;
-      },
-      child: SizeChangedLayoutNotifier(
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                requestKeyboard();
-              },
-              child: InputDecorator(
-                decoration: widget.decoration,
-                isFocused: _effectiveFocusNode.hasFocus,
-                isEmpty: _value.text.isEmpty && _chips.isEmpty,
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: 4.0,
-                  runSpacing: 4.0,
-                  children: chipsChildren,
+        onNotification: (SizeChangedLayoutNotification val) {
+          WidgetsBinding.instance?.addPostFrameCallback((_) async {
+            _suggestionsBoxController.overlayEntry?.markNeedsBuild();
+          });
+          return true;
+        },
+        child: SizeChangedLayoutNotifier(
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  requestKeyboard();
+                },
+                child: InputDecorator(
+                  decoration: widget.decoration,
+                  isFocused: _effectiveFocusNode.hasFocus,
+                  isEmpty: _value.text.isEmpty && _chips.isEmpty,
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 4.0,
+                    runSpacing: 4.0,
+                    children: chipsChildren,
+                  ),
                 ),
               ),
-            ),
-            CompositedTransformTarget(
-              link: _layerLink,
-              child: Container(),
-            ),
-          ],
+              CompositedTransformTarget(
+                link: _layerLink,
+                child: Container(),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

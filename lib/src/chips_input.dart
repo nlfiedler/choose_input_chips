@@ -79,12 +79,10 @@ class ChipsInput<T> extends StatefulWidget {
   final bool autofocus;
   final bool ensureVisible;
   final bool allowChipEditing;
-  final FocusNode? focusNode;
-  final List<T>? initialSuggestions;
   final double suggestionsBoxElevation;
   final BoxDecoration suggestionsBoxDecoration;
-  final FocusNode focusNode;
-  final List<T> initialSuggestions;
+  final FocusNode? focusNode;
+  final List<T>? initialSuggestions;
   final bool showKeyboard;
 
   // final Color cursorColor;
@@ -137,7 +135,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     super.initState();
     _chips.addAll(widget.initialValue);
     _suggestions = widget.initialSuggestions
-        .where((r) => !_chips.contains(r))
+        ?.where((r) => !_chips.contains(r))
         .toList(growable: false);
     _suggestionsBoxController = SuggestionsBoxController(context);
 
@@ -164,7 +162,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   }
 
   void _handleFocusChanged() {
-    if (_focusNode.hasFocus) {
+    if (_focusNode?.hasFocus ?? false) {
       if (widget.showKeyboard) {
         _openInputConnection();
       }
@@ -278,7 +276,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     }
     widget.onChanged(_chips.toList(growable: false));
     if (!widget.showKeyboard) {
-      _focusNode.unfocus();
+      _focusNode?.unfocus();
     }
   }
 
@@ -419,11 +417,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   }
 
   @override
-  void performSelector(String selectorName) {
-    //TODO
-  }
-
-  @override
   void didChangeInputControl(
       TextInputControl? oldControl, TextInputControl? newControl) {
     //TODO
@@ -490,7 +483,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     );
 
     return RawKeyboardListener(
-      focusNode: _focusNode, // or FocusNode()
+      focusNode: _focusNode ?? FocusNode(),
       onKey: (event) {
         final str = currentTextEditingValue.text;
         if (event.runtimeType.toString() == 'RawKeyDownEvent' &&
@@ -503,7 +496,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
       },
       child: NotificationListener<SizeChangedLayoutNotification>(
         onNotification: (SizeChangedLayoutNotification val) {
-          WidgetsBinding.instance?.addPostFrameCallback((_) async {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
             _suggestionsBoxController.overlayEntry?.markNeedsBuild();
           });
           return true;

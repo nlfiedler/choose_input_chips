@@ -95,8 +95,7 @@ class ChipsInput<T> extends StatefulWidget {
   ChipsInputState<T> createState() => ChipsInputState<T>();
 }
 
-class ChipsInputState<T> extends State<ChipsInput<T>>
-    implements TextInputClient {
+class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   Set<T> _chips = <T>{};
   List<T?>? _suggestions;
   final StreamController<List<T?>?> _suggestionsStreamController =
@@ -137,9 +136,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void initState() {
     super.initState();
     _chips.addAll(widget.initialValue);
-    // _focusAttachment = _focusNode.attach(context);
     _suggestions = widget.initialSuggestions
-        ?.where((r) => !_chips.contains(r))
+        .where((r) => !_chips.contains(r))
         .toList(growable: false);
     _suggestionsBoxController = SuggestionsBoxController(context);
 
@@ -351,7 +349,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     if (value.text != oldTextEditingValue.text) {
       setState(() => _value = value);
       if (value.replacementCharactersCount <
-          oldTextEditingValue.replacementCharactersCount) {
+              oldTextEditingValue.replacementCharactersCount &&
+          _chips.isNotEmpty) {
         final removedChip = _chips.last;
         setState(() =>
             _chips = Set.of(_chips.take(value.replacementCharactersCount)));
@@ -373,20 +372,11 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
           String.fromCharCodes(_chips.map((_) => kObjectReplacementChar)) +
               "${replaceText ? '' : _value.normalCharactersText}" +
               putText;
-      setState(() {
-        final textLength = updatedText.characters.length;
-        final replacedLength = _chips.length;
-        _value = _value.copyWith(
-          text: updatedText,
-          selection: TextSelection.collapsed(offset: textLength),
-          composing: (Platform.isIOS || replacedLength == textLength)
-              ? TextRange.empty
-              : TextRange(
-                  start: replacedLength,
-                  end: textLength,
-                ),
-        );
-      });
+      setState(() => _value = _value.copyWith(
+            text: updatedText,
+            selection: TextSelection.collapsed(offset: updatedText.length),
+            composing: TextRange.empty,
+          ));
     }
     if (!kIsWeb) {
       _closeInputConnectionIfNeeded(); //Hack for #34 (https://github.com/danvick/flutter_chips_input/issues/34#issuecomment-684505282). TODO: Find permanent fix

@@ -76,4 +76,6 @@ pubspec.lock
 
 # Old files
 *.old
+
+.DS_Store
 .vscode/settings.json

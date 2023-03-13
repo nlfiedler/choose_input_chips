@@ -16,7 +16,8 @@ class TextCursor extends StatefulWidget {
   State<TextCursor> createState() => _TextCursorState();
 }
 
-class _TextCursorState extends State<TextCursor> with SingleTickerProviderStateMixin {
+class _TextCursorState extends State<TextCursor>
+    with SingleTickerProviderStateMixin {
   bool _displayed = false;
   late Timer _timer;
 
@@ -45,7 +46,9 @@ class _TextCursorState extends State<TextCursor> with SingleTickerProviderStateM
         opacity: _displayed && widget.resumed ? 1.0 : 0.0,
         child: Container(
           width: 2.0,
-          color: theme.textSelectionTheme.cursorColor ?? theme.textSelectionTheme.selectionColor ?? theme.primaryColor,
+          color: theme.textSelectionTheme.cursorColor ??
+              theme.textSelectionTheme.selectionColor ??
+              theme.primaryColor,
         ),
       ),
     );

@@ -368,7 +368,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     if (replaceText || putText != '') {
       final updatedText =
           String.fromCharCodes(_chips.map((_) => kObjectReplacementChar)) +
-              "${replaceText ? '' : _value.normalCharactersText}" +
+              (replaceText ? '' : _value.normalCharactersText) +
               putText;
       setState(() => _value = _value.copyWith(
             text: updatedText,
@@ -377,7 +377,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
           ));
     }
     if (!kIsWeb) {
-      _closeInputConnectionIfNeeded(); //Hack for #34 (https://github.com/danvick/flutter_chips_input/issues/34#issuecomment-684505282). TODO: Find permanent fix
+      // hack for https://github.com/danvick/flutter_chips_input/issues/34
+      _closeInputConnectionIfNeeded();
     }
     _textInputConnection ??= TextInput.attach(this, textInputConfiguration);
     if (_textInputConnection?.attached ?? false) {
@@ -412,15 +413,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   }
 
   @override
-  void performPrivateCommand(String action, Map<String, dynamic> data) {
-    //TODO
-  }
-
-  @override
-  void didChangeInputControl(
-      TextInputControl? oldControl, TextInputControl? newControl) {
-    //TODO
-  }
+  void performPrivateCommand(String action, Map<String, dynamic> data) {}
 
   @override
   void didUpdateWidget(covariant ChipsInput<T> oldWidget) {
@@ -429,14 +422,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   }
 
   @override
-  void updateFloatingCursor(RawFloatingCursorPoint point) {
-    // print(point);
-  }
+  void updateFloatingCursor(RawFloatingCursorPoint point) {}
 
   @override
-  void connectionClosed() {
-    //print('TextInputClient.connectionClosed()');
-  }
+  void connectionClosed() {}
 
   @override
   TextEditingValue get currentTextEditingValue => _value;
@@ -489,6 +478,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
         if (event.runtimeType.toString() == 'RawKeyDownEvent' &&
             event.logicalKey == LogicalKeyboardKey.backspace &&
             str.isNotEmpty) {
+          // TODO: try just str.length here
           final sd = str.substring(0, str.length - 1);
           updateEditingValue(TextEditingValue(
               text: sd, selection: TextSelection.collapsed(offset: sd.length)));
@@ -540,7 +530,4 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
 
   @override
   void removeTextPlaceholder() {}
-
-  @override
-  void performSelector(String selectorName) {}
 }

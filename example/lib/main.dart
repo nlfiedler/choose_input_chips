@@ -6,14 +6,12 @@ void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Chips Input',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        // brightness: Brightness.dark,
       ),
       home: const MyHomePage(),
     );
@@ -24,72 +22,48 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   final _chipKey = GlobalKey<ChipsInputState>();
 
   @override
   Widget build(BuildContext context) {
     const mockResults = <AppProfile>[
-      AppProfile('John Doe', 'jdoe@flutter.io',
-          'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-      AppProfile('Paul', 'paul@google.com',
-          'https://mbtskoudsalg.com/images/person-stock-image-png.png'),
-      AppProfile('Fred', 'fred@google.com',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Brian', 'brian@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('John', 'john@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Thomas', 'thomas@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Nelly', 'nelly@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Marie', 'marie@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Charlie', 'charlie@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Diana', 'diana@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Ernie', 'ernie@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
-      AppProfile('Gina', 'fred@flutter.io',
-          'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'),
+      AppProfile('Charlie', 'charlie@flutter.io', 'man-1.png'),
+      AppProfile('Diana', 'diana@flutter.io', 'woman-1.png'),
+      AppProfile('Fred', 'fred@flutter.io', 'man-2.png'),
+      AppProfile('Gina', 'gina@flutter.io', 'woman-2.png'),
+      AppProfile('John', 'john@flutter.io', 'man-3.png'),
+      AppProfile('Marie', 'marie@flutter.io', 'woman-3.png'),
+      AppProfile('Pauline', 'pauline@flutter.io', 'woman-4.png'),
+      AppProfile('Susan', 'susan@flutter.io', 'woman-5.png'),
+      AppProfile('Thomas', 'thomas@flutter.io', 'man-4.png'),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Chips Input Example')),
-      resizeToAvoidBottomInset: false,
+      appBar: AppBar(title: const Text('Flutter ChipsInput Example')),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Start typing a name below:'),
+              ),
               ChipsInput(
                 key: _chipKey,
-                /*initialValue: [
-                  AppProfile('John Doe', 'jdoe@flutter.io',
-                      'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-                ],*/
-                // autofocus: true,
-                // allowChipEditing: true,
-                keyboardAppearance: Brightness.dark,
-                textCapitalization: TextCapitalization.words,
-                // enabled: false,
-                // maxChips: 5,
                 textStyle: const TextStyle(
-                    height: 1.5, fontFamily: 'Roboto', fontSize: 16),
+                  height: 1.5,
+                  fontFamily: 'Roboto',
+                  fontSize: 16,
+                ),
                 decoration: const InputDecoration(
-                  // prefixIcon: Icon(Icons.search),
-                  // hintText: formControl.hint,
                   labelText: 'Select People',
-                  // enabled: false,
-                  // errorText: field.errorText,
                 ),
                 findSuggestions: (String query) {
-                  // print("Query: '$query'");
                   if (query.isNotEmpty) {
                     var lowercaseQuery = query.toLowerCase();
                     return mockResults.where((profile) {
@@ -106,18 +80,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           .compareTo(
                               b.name.toLowerCase().indexOf(lowercaseQuery)));
                   }
-                  // return <AppProfile>[];
                   return mockResults;
                 },
                 onChanged: (data) {
-                  // print(data);
+                  // this is a good place to update application state
                 },
                 chipBuilder: (context, state, dynamic profile) {
                   return InputChip(
                     key: ObjectKey(profile),
                     label: Text(profile.name),
                     avatar: CircleAvatar(
-                      backgroundImage: NetworkImage(profile.imageUrl),
+                      backgroundImage:
+                          AssetImage('assets/avatars/${profile.imageName}'),
                     ),
                     onDeleted: () => state.deleteChip(profile),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -127,7 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   return ListTile(
                     key: ObjectKey(profile),
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(profile.imageUrl),
+                      backgroundImage:
+                          AssetImage('assets/avatars/${profile.imageName}'),
                     ),
                     title: Text(profile.name),
                     subtitle: Text(profile.email),
@@ -135,81 +110,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
-              const TextField(),
-              /*ChipsInput(
-                initialValue: [
-                  AppProfile('John Doe', 'jdoe@flutter.io',
-                      'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-                ],
-                enabled: true,
-                maxChips: 10,
-                textStyle: TextStyle(height: 1.5, fontFamily: "Roboto", fontSize: 16),
-                decoration: InputDecoration(
-                  // prefixIcon: Icon(Icons.search),
-                  // hintText: formControl.hint,
-                  labelText: "Select People",
-                  // enabled: false,
-                  // errorText: field.errorText,
-                ),
-                findSuggestions: (String query) {
-                  if (query.length != 0) {
-                    var lowercaseQuery = query.toLowerCase();
-                    return mockResults.where((profile) {
-                      return profile.name
-                          .toLowerCase()
-                          .contains(query.toLowerCase()) ||
-                          profile.email
-                              .toLowerCase()
-                              .contains(query.toLowerCase());
-                    }).toList(growable: false)
-                      ..sort((a, b) => a.name
-                          .toLowerCase()
-                          .indexOf(lowercaseQuery)
-                          .compareTo(
-                          b.name.toLowerCase().indexOf(lowercaseQuery)));
-                  } else {
-                    return mockResults;
-                  }
-                },
-                onChanged: (data) {
-                  print(data);
-                },
-                chipBuilder: (context, state, profile) {
-                  return InputChip(
-                    key: ObjectKey(profile),
-                    label: Text(profile.name),
-                    avatar: CircleAvatar(
-                      backgroundImage: NetworkImage(profile.imageUrl),
-                    ),
-                    onDeleted: () => state.deleteChip(profile),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  );
-                },
-                suggestionBuilder: (context, state, profile) {
-                  return ListTile(
-                    key: ObjectKey(profile),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(profile.imageUrl),
-                    ),
-                    title: Text(profile.name),
-                    subtitle: Text(profile.email),
-                    onTap: () => state.selectSuggestion(profile),
-                  );
-                },
-              ),*/
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Click the button to add a specific chip'),
+              ),
               ElevatedButton(
                 onPressed: () {
                   _chipKey.currentState!.selectSuggestion(const AppProfile(
-                      'Gina',
-                      'fred@flutter.io',
-                      'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'));
+                      'Gina', 'gina@flutter.io', 'woman-3.png'));
                 },
                 child: const Text('Add Chip'),
               ),
             ],
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
@@ -217,9 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
 class AppProfile {
   final String name;
   final String email;
-  final String imageUrl;
+  final String imageName;
 
-  const AppProfile(this.name, this.email, this.imageUrl);
+  const AppProfile(this.name, this.email, this.imageName);
 
   @override
   bool operator ==(Object other) =>

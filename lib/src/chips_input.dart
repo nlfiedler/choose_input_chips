@@ -138,11 +138,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
         ?.where((r) => !_chips.contains(r))
         .toList(growable: false);
     _suggestionsBoxController = SuggestionsBoxController(context);
-
     _effectiveFocusNode.addListener(_handleFocusChanged);
     _nodeAttachment = _effectiveFocusNode.attach(context);
     _effectiveFocusNode.canRequestFocus = _canRequestFocus;
-
+    _updateTextInputState(replaceText: true);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _initOverlayEntry();
       if (mounted && widget.autofocus) {
@@ -377,7 +376,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
           ));
     }
     if (!kIsWeb) {
-      // hack for https://github.com/danvick/flutter_chips_input/issues/34
       _closeInputConnectionIfNeeded();
     }
     _textInputConnection ??= TextInput.attach(this, textInputConfiguration);
@@ -478,7 +476,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
         if (event.runtimeType.toString() == 'RawKeyDownEvent' &&
             event.logicalKey == LogicalKeyboardKey.backspace &&
             str.isNotEmpty) {
-          // TODO: try just str.length here
           final sd = str.substring(0, str.length - 1);
           updateEditingValue(TextEditingValue(
               text: sd, selection: TextSelection.collapsed(offset: sd.length)));

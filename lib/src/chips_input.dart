@@ -84,9 +84,6 @@ class ChipsInput<T> extends StatefulWidget {
   final FocusNode? focusNode;
   final List<T>? initialSuggestions;
   final bool showKeyboard;
-
-  // final Color cursorColor;
-
   final TextCapitalization textCapitalization;
 
   @override
@@ -202,7 +199,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
               min(suggestionBoxHeight, widget.suggestionsBoxMaxHeight!);
         }
         final showTop = topAvailableSpace > bottomAvailableSpace;
-        // print("showTop: $showTop" );
         final compositedTransformFollowerOffset =
             showTop ? Offset(0, -size.height) : Offset.zero;
 
@@ -340,8 +336,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
 
   @override
   void updateEditingValue(TextEditingValue value) {
-    //print("updateEditingValue FIRED with ${value.text}");
-    // _receivedRemoteTextEditingValue = value;
     final oldTextEditingValue = _value;
     if (value.text != oldTextEditingValue.text) {
       setState(() => _value = value);

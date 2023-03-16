@@ -8,8 +8,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'suggestions_box_controller.dart';
 import 'text_cursor.dart';
 
+/// Return zero or more values that match the user input.
 typedef ChipsInputSuggestions<T> = FutureOr<List<T>> Function(String query);
-typedef ChipSelected<T> = void Function(T data, bool selected);
+
+/// Return a widget to represent the given value.
 typedef ChipsBuilder<T> = Widget Function(
     BuildContext context, ChipsInputState<T> state, T data);
 
@@ -27,6 +29,17 @@ extension on TextEditingValue {
   int get replacementCharactersCount => replacementCharacters.length;
 }
 
+/// Text field that may contain multiple input chips.
+///
+/// Renders as a text field which will contain chips based on selections made by
+/// the user. Through the use of `findSuggestions()` and `suggestionBuilder()`
+/// the textual input from the user will be converted into a list of matching
+/// chips from which the user may select.
+///
+/// The `chipBuilder()` is used build widgets to represent the selected values.
+///
+/// See the `ChipsInputState` class for functions to add and remove chips from
+/// the widget in a programmatic fashion.
 class ChipsInput<T> extends StatefulWidget {
   const ChipsInput({
     Key? key,
@@ -60,36 +73,93 @@ class ChipsInput<T> extends StatefulWidget {
         super(key: key);
 
   final InputDecoration decoration;
+
+  /// The style to be applied to the chip's label.
   final TextStyle? textStyle;
+
+  /// If false, prevents editing of the values.
   final bool enabled;
+
+  /// Function for producing suggested values based on text input.
   final ChipsInputSuggestions<T> findSuggestions;
+
+  /// Invoked any time chips are added, edited, or removed.
   final ValueChanged<List<T>> onChanged;
+
+  /// Function to produce a widget to show in the input field.
   final ChipsBuilder<T> chipBuilder;
+
+  /// Function to produce a widget to show in the suggestions overlay.
   final ChipsBuilder<T> suggestionBuilder;
+
+  /// List of inital values, if any.
   final List<T> initialValue;
+
+  /// Maximum number of chips to allow in the field.
   final int? maxChips;
+
+  /// Maximum height for the suggestions overlay.
   final double? suggestionsBoxMaxHeight;
+
+  /// Specify type of information for which to optimize the input control.
   final TextInputType inputType;
+
+  /// How overflowing text should be handled.
   final TextOverflow textOverflow;
+
+  /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
+
+  /// Whether to enable autocorrection.
   final bool autocorrect;
+
+  /// What text to display in the text input control's action button.
   final String? actionLabel;
+
+  /// What kind of action to request for the action button on the IME.
   final TextInputAction inputAction;
+
+  /// The appearance of the keyboard.
   final Brightness keyboardAppearance;
+
+  /// Whether this text field should focus itself if nothing else is already
+  /// focused.
   final bool autofocus;
+
+  /// Scroll the parent to make the input field visible, if true.
   final bool ensureVisible;
+
+  /// If true, allow editing a chip value.
   final bool allowChipEditing;
+
+  /// Passed to `Material` as the `elevation` value for the overlay.
   final double suggestionsBoxElevation;
+
+  /// Decoration for the suggestions overlay.
   final BoxDecoration suggestionsBoxDecoration;
+
+  /// Defines the keyboard focus for this widget.
   final FocusNode? focusNode;
+
+  /// Set of values to suggest when field first receives focus.
   final List<T>? initialSuggestions;
+
+  /// If true, show the keyboard when the field receives the focus.
   final bool showKeyboard;
+
+  /// Configures how the platform keyboard will select an uppercase or lowercase
+  /// keyboard.
   final TextCapitalization textCapitalization;
 
   @override
   ChipsInputState<T> createState() => ChipsInputState<T>();
 }
 
+/// Represents the state of the chips input widget.
+///
+/// You may use the `selectSuggestion()` and `deleteChip()` functions to add or
+/// remove chips from the input field. This can be used when combining
+/// `ChipsInput` with other widgets, such as a drop-down selector.
 class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   Set<T> _chips = <T>{};
   List<T?>? _suggestions;
@@ -194,7 +264,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
             renderBoxOffset.dy -
             size.height;
         var suggestionBoxHeight = max(topAvailableSpace, bottomAvailableSpace);
-        if (null != widget.suggestionsBoxMaxHeight) {
+        if (widget.suggestionsBoxMaxHeight != null) {
           suggestionBoxHeight =
               min(suggestionBoxHeight, widget.suggestionsBoxMaxHeight!);
         }
@@ -254,6 +324,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     );
   }
 
+  /// Add the provided value to the list of values in the widget.
   void selectSuggestion(T data) {
     if (!_hasReachedMaxChips) {
       setState(() => _chips = _chips..add(data));
@@ -275,6 +346,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     }
   }
 
+  /// Remove the chip that represents the given value, if any.
   void deleteChip(T data) {
     if (widget.enabled) {
       setState(() => _chips.remove(data));

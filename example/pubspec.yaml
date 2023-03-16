@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_chips_input:
+  choose_input_chips:
     path: ../
 
 dev_dependencies:

@@ -4,6 +4,6 @@
 /// which may contain multiple chips based on user input. It offers suggestions
 /// based on user input as well as programmatic control over adding and removing
 /// chips.
-library flutter_chips_input;
+library choose_input_chips;
 
 export './src/chips_input.dart';

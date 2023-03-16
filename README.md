@@ -1,6 +1,6 @@
-# flutter_chips_input
+# choose_input_chips
 
-Flutter library for building input fields with chips as input options. Its appearance is that of a text input field in which text input may be used to display an overlay with suggestions for the user to select a matching item. Initially created by [Danvick Miller](https://github.com/danvick/) and subsequently enhanced by contributions from many others.
+Flutter library for building input fields with chips as input options. Its appearance is that of a text field in which textual input may be used to populate an overlay with suggestions for the user to select a matching item. Initially created by [Danvick Miller](https://github.com/danvick/) and subsequently enhanced by contributions from many others.
 
 ## Usage
 
@@ -10,16 +10,16 @@ Edit your package's `pubspec.yaml` like so and then run `flutter pub get`:
 
 ```
 dependencies:
-  flutter_chips_input:
+  choose_input_chips:
     git:
-      url: https://github.com/nlfiedler/flutter_chips_input.git
+      url: https://github.com/nlfiedler/choose_input_chips.git
       ref: main
 ```
 
 ### Import
 
 ```dart
-import 'package:flutter_chips_input/flutter_chips_input.dart';
+import 'package:choose_input_chips/choose_input_chips.dart';
 ```
 
 ### Example
@@ -37,6 +37,8 @@ The libraries shown below offer form input fields that have something to do with
 * [simple_chips_input](https://pub.dev/packages/simple_chips_input): text input field with free-form creation of new chips, with optional input validation.
 
 ## How to Contribute
+
+Pull requests are welcome. In order to expedite your contributions, please keep the following suggestions in mind. Thank you.
 
 1. Submit small changes one at a time.
 1. Keep bug fixes separate from unrelated changes.

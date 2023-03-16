@@ -3,6 +3,7 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .idea/
+.metadata
 .packages
 .pub-cache/
 .pub/

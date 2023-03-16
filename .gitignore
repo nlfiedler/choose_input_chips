@@ -4,6 +4,7 @@
 .flutter-plugins-dependencies
 .fvm/
 .idea/
+.metadata
 .packages
 .project
 .pub-cache/

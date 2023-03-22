@@ -182,8 +182,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
         textCapitalization: widget.textCapitalization,
       );
 
-  bool get _hasInputConnection =>
-      _textInputConnection != null && _textInputConnection!.attached;
+  bool get _hasInputConnection => _textInputConnection?.attached ?? false;
 
   bool get _hasReachedMaxChips =>
       widget.maxChips != null && _chips.length >= widget.maxChips!;
@@ -239,7 +238,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     }
     if (mounted) {
       setState(() {
-        /*rebuild so that _TextCursor is hidden.*/
+        // rebuild so that TextCursor is hidden (side-effect?)
       });
     }
   }
@@ -424,6 +423,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
           _enteredTexts.remove(removedChip);
         }
         _updateTextInputState(putText: putText);
+      } else if (!kIsWeb) {
+        // text input is updated on browser but not elsewhere?
+        _updateTextInputState();
       }
       _onSearchChanged(_value.normalCharactersText);
     }
@@ -435,10 +437,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
           String.fromCharCodes(_chips.map((_) => kObjectReplacementChar)) +
               (replaceText ? '' : _value.normalCharactersText) +
               putText;
-      setState(() => _value = _value.copyWith(
+      setState(() => _value = TextEditingValue(
             text: updatedText,
             selection: TextSelection.collapsed(offset: updatedText.length),
-            composing: TextRange.empty,
           ));
     }
     if (!kIsWeb) {
@@ -543,8 +544,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
             event.logicalKey == LogicalKeyboardKey.backspace &&
             str.isNotEmpty) {
           final sd = str.substring(0, str.length - 1);
-          updateEditingValue(TextEditingValue(
-              text: sd, selection: TextSelection.collapsed(offset: sd.length)));
+          final sel = TextSelection.collapsed(offset: sd.length);
+          updateEditingValue(TextEditingValue(text: sd, selection: sel));
         }
       },
       child: NotificationListener<SizeChangedLayoutNotification>(

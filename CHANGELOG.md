@@ -5,7 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This file follows the convention described at
 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [1.0.0]
+### Renamed from `flutter_chips_input` to `choose_input_chips`
+- Resetting the version number to `1.0.0` to reflect name change.
 ### Added
 - ziyadsfaxi: add suggestions box elevation option
 - ziyadsfaxi: add box decoration to suggestions box
@@ -22,6 +24,8 @@ This file follows the convention described at
 - huseyinhamad: add performSelector and didChangeInputControl overrides
 - Eimji: use WITH the mixin TextInputClient to avoid missing @override implementations
 - Eimji: fix warnings, errors, iOS Keyboard entry, backspace for Android, unicode char
+
+## History before the rename
 
 ## [2.0.0] - 2022-05-16
 * Flutter 3 compatibility 

@@ -1,6 +1,6 @@
 # choose_input_chips
 
-Flutter library for building input fields with chips as input options. Its appearance is that of a text field in which textual input may be used to populate an overlay with suggestions for the user to select a matching item. Initially created by [Danvick Miller](https://github.com/danvick/) and subsequently enhanced by contributions from many others.
+Flutter library for building form fields with multiple values represented as input chips. Its appearance is that of a text field in which textual input may be used to populate an overlay with suggestions for the user to select a matching item. Initially created by [Danvick Miller](https://github.com/danvick/) by the name [flutter_chips_input](https://github.com/danvick/flutter_chips_input) and subsequently enhanced by contributions from many others.
 
 ## Usage
 

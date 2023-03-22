@@ -1,6 +1,6 @@
 name: choose_input_chips
-description: Flutter library for building input fields with chips as input options.
-version: 2.0.0
+description: Build form fields with multiple values and text completion.
+version: 1.0.0
 homepage: https://github.com/nlfiedler/choose_input_chips
 
 environment:

@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter ChipsInput',
+      title: 'ChipsInput Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -43,7 +43,7 @@ class MyHomePageState extends State<MyHomePage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter ChipsInput')),
+      appBar: AppBar(title: const Text('ChipsInput Example')),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(

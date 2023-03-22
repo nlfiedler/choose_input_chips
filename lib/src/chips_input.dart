@@ -585,13 +585,4 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
       ),
     );
   }
-
-  @override
-  void showToolbar() {}
-
-  @override
-  void insertTextPlaceholder(Size size) {}
-
-  @override
-  void removeTextPlaceholder() {}
 }

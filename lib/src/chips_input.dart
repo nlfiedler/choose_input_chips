@@ -22,11 +22,8 @@ extension on TextEditingValue {
         text.codeUnits.where((ch) => ch != kObjectReplacementChar),
       );
 
-  List<int> get replacementCharacters => text.codeUnits
-      .where((ch) => ch == kObjectReplacementChar)
-      .toList(growable: false);
-
-  int get replacementCharactersCount => replacementCharacters.length;
+  int get replacementCharactersCount =>
+      text.codeUnits.where((ch) => ch == kObjectReplacementChar).length;
 }
 
 /// Text field that may contain multiple input chips.

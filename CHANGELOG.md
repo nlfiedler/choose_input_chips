@@ -5,54 +5,54 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This file follows the convention described at
 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [1.0.0]
-### Renamed from `flutter_chips_input` to `choose_input_chips`
+## [1.0.0] - 2023-03-22
+### Renamed from `flutter_chips_input` to `choose_input_chips`.
 - Resetting the version number to `1.0.0` to reflect name change.
 ### Added
-- ziyadsfaxi: add suggestions box elevation option
-- ziyadsfaxi: add box decoration to suggestions box
-- chipsfork: optionally show initial suggestions
-- chipsfork: option to not show keyboard when input is focused
+- ziyadsfaxi: add suggestions box elevation option.
+- ziyadsfaxi: add box decoration to suggestions box.
+- chipsfork: optionally show initial suggestions.
+- chipsfork: option to not show keyboard when input is focused.
 ### Fixed
-- hest: fix Unicode character disappearing when complete
-- jorelkimcruz: fix backspace bug for android
-- SocialStrata: fix ios keyboard jitter
-- tstrg: fix `Failed assertion 'attached': is not true`
-- joCur: add a Null-Check before insert the overlayEntry inside SuggestionBoxController
-- noworyta: add performSelector override
-- ChillkroeteTTS: make ensureVisible optional to accommodate desktop and web platforms
-- huseyinhamad: add performSelector and didChangeInputControl overrides
-- Eimji: use WITH the mixin TextInputClient to avoid missing @override implementations
-- Eimji: fix warnings, errors, iOS Keyboard entry, backspace for Android, unicode char
+- hest: fix Unicode character disappearing when complete.
+- jorelkimcruz: fix backspace bug for android.
+- SocialStrata: fix ios keyboard jitter.
+- tstrg: fix `Failed assertion 'attached': is not true`.
+- joCur: add a Null-Check before insert the overlayEntry inside SuggestionBoxController.
+- noworyta: add performSelector override.
+- ChillkroeteTTS: make ensureVisible optional to accommodate desktop and web platforms.
+- huseyinhamad: add performSelector and didChangeInputControl overrides.
+- Eimji: use WITH the mixin TextInputClient to avoid missing @override implementations.
+- Eimji: fix warnings, errors, iOS Keyboard entry, backspace for Android, unicode char.
 
 ## History before the rename
 
 ## [2.0.0] - 2022-05-16
-* Flutter 3 compatibility 
+* Flutter 3 compatibility
 
 ## [1.10.0] - 2021-05-25
-- Cursor color fallback if not defined in the Theme
-- Fix bug where suggestion box never opens after maxChips reached
-- Fix bug where widget still works when enabled set to false
-- Added null-safety
-- Fixed lack of implementation for suggestionsBoxMaxHeight
-- Fixed the support for `suggestionsBoxMaxHeight`
-- Added optional `initialSuggestions` parameter so that one can see the suggestions box as soon as the field gains focus, without typing in the keyboard
+- Cursor color fallback if not defined in the Theme.
+- Fix bug where suggestion box never opens after maxChips reached.
+- Fix bug where widget still works when enabled set to false.
+- Added null-safety.
+- Fixed lack of implementation for suggestionsBoxMaxHeight.
+- Fixed the support for `suggestionsBoxMaxHeight`.
+- Added optional `initialSuggestions` parameter so that one can see the suggestions box as soon as the field gains focus, without typing in the keyboard.
 
 ## [1.9.5] - 2020-12-08
-- Fixed bug where `FocusNode` was not being properly disposed
-- Applied `pedantic` rules and cleaned up code
-- Improved type safety
-- Removed unused `AlwaysDisabledFocusNode` class
-- Added Continuous Integration and Code Coverage analysis
-- Builds against stable, beta, and dev channels
-- Regenerated `example` app
+- Fixed bug where `FocusNode` was not being properly disposed.
+- Applied `pedantic` rules and cleaned up code.
+- Improved type safety.
+- Removed unused `AlwaysDisabledFocusNode` class.
+- Added Continuous Integration and Code Coverage analysis.
+- Builds against stable, beta, and dev channels.
+- Regenerated `example` app.
 
 ## [1.9.4] - 2020-09-05
 - Fix bug where first chip disappears, replaced with typed character.
 
 ## [1.9.3] - 2020-08-26
-- Include override for `TextInputClient.performPrivateCommand` prevents breakage in pre-release Flutter versions
+- Include override for `TextInputClient.performPrivateCommand` prevents breakage in pre-release Flutter versions.
 
 ## [1.9.2] - 2020-08-26
 - Fixed keyboard hiding.
@@ -61,18 +61,18 @@ This file follows the convention described at
 - Fix bug "Bad UTF-8 encoding found while decoding string".
 
 ## [1.9.0] - 2020-08-05
-- Added support for Flutter v1.20
+- Added support for Flutter v1.20.
 
 ## [1.8.3] - 2020-06-15
 - Fixed bug in checking whether `maxChips` has been reached.
-- Fix `setState called on disposed widget`
+- Fix `setState called on disposed widget`.
 
 ## [1.8.2] - 2020-06-14
 - Added `autofocus` feature.
 - Allow user-entered text to be edited when chip is deleted with keyboard.
 - Attempt to fix hover issue in suggestion box items for Flutter Web.
 - When TextInputAction (e.g Done) is tapped on Keyboard, select first suggestion.
-- Fixed bug where when keyboard is dismissed and focus retained, keyboard couldn't come back
+- Fixed bug where when keyboard is dismissed and focus retained, keyboard couldn't come back.
 - Show overlay above field if more space available.
 
 ## [1.8.1] - 2020-04-24
@@ -101,15 +101,15 @@ This file follows the convention described at
 - Remove unused/unimplemented attribute `onChipTapped`.
 
 ## [1.5.1] - 2019-10-02
-- Fix setEditingState error. Close #16
+- Fix setEditingState error.
 
 ## [1.5.0] - 2019-09-23
 - Added TextInputConfiguration options - `inputType`, `obscureText`, `autocorrect`, `actionLabel`, `inputAction`, `keyboardAppearance`.
-- Use theme's cursorColor instead of primaryColor
+- Use theme's cursorColor instead of primaryColor.
 
 ## [1.4.0] - 2019-09-23
 ### Changed
-- Resize the suggestions overlay when on-screen keyboard appears
+- Resize the suggestions overlay when on-screen keyboard appears.
 ### Fixed
 - dgsc-fav: fixed iOS crash when deleting a chip with the keyboard.
 
@@ -117,31 +117,31 @@ This file follows the convention described at
 - Resolve overlay assertion error `'_overlay != null': is not true`.
 
 ## [1.3.0] - 2019-06-12
-- New attribute `textStyle` allows changing the `TextStyle` of the TextInput
+- New attribute `textStyle` allows changing the `TextStyle` of the TextInput.
 
 ## [1.2.1] - 2019-06-12
 - kengu: removed unwanted top and bottom padding from ListView in suggestions overlay.
 
 ## [1.2.0] - 2019-03-25
-- Max number of chips can now be set using `maxChips` attribute
+- Max number of chips can now be set using `maxChips` attribute.
 
 ## [1.1.0] - 2019-01-26
-- Input can now be disabled by setting `enabled` attribute to `false`
+- Input can now be disabled by setting `enabled` attribute to `false`.
 
 ## [1.0.4] - 2019-01-17
-- Fixed bug in later versions of Flutter where implementation of abstract method `void updateFloatingCursor(RawFloatingCursorPoint point);` missing
-- Fixed bug where `initialValue` chips cannot be deleted with keyboard
-- Fixed bug where `onChanged()` not fired when deleting chip using keyboard
+- Fixed bug in later versions of Flutter where implementation of abstract method `void updateFloatingCursor(RawFloatingCursorPoint point);` missing.
+- Fixed bug where `initialValue` chips cannot be deleted with keyboard.
+- Fixed bug where `onChanged()` not fired when deleting chip using keyboard.
 
 ## [1.0.3] - 2018-12-16
-- Minor improvements in documentation
+- Minor improvements in documentation.
 
 ## [1.0.2] - 2018-12-16
 - Improved library description.
-- Properly formatted example code in README
+- Properly formatted example code in README.
 
 ## [1.0.1] - 2018-12-15
-- Added example to README
+- Added example to README.
 
 ## [1.0.0] - 2018-12-15
-- Initial release.
+- Initial release

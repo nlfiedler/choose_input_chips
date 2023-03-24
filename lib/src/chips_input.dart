@@ -26,14 +26,16 @@ extension on TextEditingValue {
       text.codeUnits.where((ch) => ch == kObjectReplacementChar).length;
 }
 
-/// Text field that may contain multiple input chips.
+/// Text field that may contain multiple values.
 ///
-/// Renders as a text field which will contain chips based on selections made by
-/// the user. Through the use of `findSuggestions()` and `suggestionBuilder()`
-/// the textual input from the user will be converted into a list of matching
-/// chips from which the user may select.
+/// Renders as a text field which will contain values based on selections made
+/// by the user. Through the use of `findSuggestions()` and
+/// `suggestionBuilder()` the textual input from the user will be converted into
+/// a list of matching values from which the user may select.
 ///
 /// The `chipBuilder()` is used build widgets to represent the selected values.
+/// These are typically `InputChip` since they offer an easy method for the user
+/// to delete values, however any widget may be returned.
 ///
 /// See the `ChipsInputState` class for functions to add and remove chips from
 /// the widget in a programmatic fashion.

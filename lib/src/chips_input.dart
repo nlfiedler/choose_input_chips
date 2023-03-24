@@ -539,7 +539,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
       focusNode: _focusNode ?? FocusNode(),
       onKey: (event) {
         final str = currentTextEditingValue.text;
-        if (event.runtimeType.toString() == 'RawKeyDownEvent' &&
+        // seems like the browser handles backspace already, so doing the same
+        // here results in deleting two chips at once
+        if (!kIsWeb &&
+            event.runtimeType.toString() == 'RawKeyDownEvent' &&
             event.logicalKey == LogicalKeyboardKey.backspace &&
             str.isNotEmpty) {
           final sd = str.substring(0, str.length - 1);

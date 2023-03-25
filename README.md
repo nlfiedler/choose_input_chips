@@ -10,7 +10,7 @@ Edit your package's `pubspec.yaml` like so and then run `flutter pub get`:
 
 ```
 dependencies:
-  choose_input_chips: ^1.0.0
+  choose_input_chips: ^1.1.0
 ```
 
 ### Import
@@ -22,10 +22,6 @@ import 'package:choose_input_chips/choose_input_chips.dart';
 ### Example
 
 See the code in `example/lib/main.dart` for a full-fledged working example.
-
-## Known Issues
-
-* [macos: cursor selection of suggestion dismisses overlay](https://github.com/nlfiedler/choose_input_chips/issues/8)
 
 ## Similar Projects
 

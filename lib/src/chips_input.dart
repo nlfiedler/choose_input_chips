@@ -51,6 +51,7 @@ class ChipsInput<T> extends StatefulWidget {
     required this.onChanged,
     this.maxChips,
     this.textStyle,
+    this.maxHeight,
     this.suggestionsBoxMaxHeight,
     this.inputType = TextInputType.text,
     this.textOverflow = TextOverflow.clip,
@@ -96,6 +97,11 @@ class ChipsInput<T> extends StatefulWidget {
 
   /// Maximum number of chips to allow in the field.
   final int? maxChips;
+
+  /// Maximum height for the input field containing the values and cursor.
+  ///
+  /// This translates directly into the height of the blinking cursor.
+  final double? maxHeight;
 
   /// Maximum height for the suggestions overlay.
   final double? suggestionsBoxMaxHeight;
@@ -510,8 +516,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     final theme = Theme.of(context);
 
     chipsChildren.add(
-      SizedBox(
-        height: 30.0,
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: widget.maxHeight ?? 36,
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,

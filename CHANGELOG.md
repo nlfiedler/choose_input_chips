@@ -9,6 +9,7 @@ This file follows the convention described at
 ### Fixed
 - Backspace on browser would delete two values at once.
 - Keep text value up-to-date when chips are removed.
+- Input field height no longer hard-coded, now controlled by `maxHeight`.
 
 ## [1.0.0] - 2023-03-22
 ### Renamed from `flutter_chips_input` to `choose_input_chips`.

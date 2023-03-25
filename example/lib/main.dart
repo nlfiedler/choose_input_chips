@@ -58,6 +58,7 @@ class MyHomePageState extends State<MyHomePage> {
                 initialValue: const [
                   AppProfile('John', 'john@flutter.io', 'man-3.png')
                 ],
+                allowChipEditing: true,
                 textStyle: const TextStyle(
                   height: 1.5,
                   fontFamily: 'Roboto',

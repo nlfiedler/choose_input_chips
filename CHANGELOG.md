@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This file follows the convention described at
 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Fixed
+- Backspace on browser would delete two values at once.
+- Keep text value up-to-date when chips are removed.
+
 ## [1.0.0] - 2023-03-22
 ### Renamed from `flutter_chips_input` to `choose_input_chips`.
 - Resetting the version number to `1.0.0` to reflect name change.

@@ -25,7 +25,6 @@ See the code in `example/lib/main.dart` for a full-fledged working example.
 
 ## Known Issues
 
-* [chrome: backspace deletes two values if there are more than one](https://github.com/nlfiedler/choose_input_chips/issues/7)
 * [macos: cursor selection of suggestion dismisses overlay](https://github.com/nlfiedler/choose_input_chips/issues/8)
 
 ## Similar Projects

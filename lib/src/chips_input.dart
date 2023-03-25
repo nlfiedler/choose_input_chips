@@ -431,16 +431,16 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   }
 
   void _updateTextInputState({bool replaceText = false, String putText = ''}) {
-    if (replaceText || putText != '') {
-      final updatedText =
-          String.fromCharCodes(_chips.map((_) => kObjectReplacementChar)) +
-              (replaceText ? '' : _value.normalCharactersText) +
-              putText;
-      setState(() => _value = TextEditingValue(
-            text: updatedText,
-            selection: TextSelection.collapsed(offset: updatedText.length),
-          ));
-    }
+    // update the text every time unconditionally as the text needs to be kept
+    // in sync with the the list of values that are changing out-of-band
+    final updatedText =
+        String.fromCharCodes(_chips.map((_) => kObjectReplacementChar)) +
+            (replaceText ? '' : _value.normalCharactersText) +
+            putText;
+    setState(() => _value = TextEditingValue(
+          text: updatedText,
+          selection: TextSelection.collapsed(offset: updatedText.length),
+        ));
     if (!kIsWeb) {
       _closeInputConnectionIfNeeded();
     }

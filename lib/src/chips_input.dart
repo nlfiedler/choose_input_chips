@@ -92,7 +92,7 @@ class ChipsInput<T> extends StatefulWidget {
   /// Function to produce a widget to show in the suggestions overlay.
   final ChipsBuilder<T> suggestionBuilder;
 
-  /// List of inital values, if any.
+  /// List of initial values, if any.
   final List<T> initialValue;
 
   /// Maximum number of chips to allow in the field.
@@ -115,7 +115,7 @@ class ChipsInput<T> extends StatefulWidget {
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
 
-  /// Whether to enable autocorrection.
+  /// Whether to enable auto-correction or not.
   final bool autocorrect;
 
   /// What text to display in the text input control's action button.
@@ -331,7 +331,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   /// Add the provided value to the list of values in the widget.
   void selectSuggestion(T data) {
     if (!_hasReachedMaxChips) {
-      setState(() => _chips = _chips..add(data));
+      setState(() => _chips.add(data));
       if (widget.allowChipEditing) {
         final enteredText = _value.normalCharactersText;
         if (enteredText.isNotEmpty) _enteredTexts[data] = enteredText;

@@ -1,4 +1,4 @@
-/// Provides a txet field using chips with optional text completion.
+/// Provides a text field using chips with optional text completion.
 ///
 /// The primary widget of this library, `ChipsInput`, appears as a text field
 /// which may contain multiple values based on user input. It offers suggestions

@@ -42,3 +42,5 @@ Pull requests are welcome. In order to expedite your contributions, please keep 
 1. If you want to reformat the code, do so in a separate commit.
 1. If you want to make a lot of changes to bring the code up to date with the latest Dart or Flutter features (such as nullability), do so in a separate commit.
 1. Use these [guidelines](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) when writing git commit messages. Bonus points for following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) convention.
+
+EOF

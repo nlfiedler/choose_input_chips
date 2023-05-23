@@ -64,7 +64,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.textCapitalization = TextCapitalization.none,
     this.autofocus = false,
     this.allowChipEditing = false,
-    this.focusNode,
+    this.userFocusNode,
     this.initialSuggestions,
     this.suggestionsBoxElevation = 0,
     this.suggestionsBoxDecoration = const BoxDecoration(),
@@ -144,7 +144,7 @@ class ChipsInput<T> extends StatefulWidget {
   final BoxDecoration suggestionsBoxDecoration;
 
   /// Defines the keyboard focus for this widget.
-  final FocusNode? focusNode;
+  final FocusNode? userFocusNode;
 
   /// Set of values to suggest when field first receives focus.
   final List<T>? initialSuggestions;
@@ -192,9 +192,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   bool get _hasReachedMaxChips =>
       widget.maxChips != null && _chips.length >= widget.maxChips!;
 
-  FocusNode? _focusNode;
+  FocusNode? _defaultFocusNode;
   FocusNode get _effectiveFocusNode =>
-      widget.focusNode ?? (_focusNode ??= FocusNode());
+      widget.userFocusNode ?? (_defaultFocusNode ??= FocusNode());
   late FocusAttachment _nodeAttachment;
 
   RenderBox? get renderBox => context.findRenderObject() as RenderBox?;
@@ -225,14 +225,14 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
   void dispose() {
     _closeInputConnectionIfNeeded();
     _effectiveFocusNode.removeListener(_handleFocusChanged);
-    _focusNode?.dispose();
+    _defaultFocusNode?.dispose();
     _suggestionsStreamController.close();
     _suggestionsBoxController.close();
     super.dispose();
   }
 
   void _handleFocusChanged() {
-    if (_focusNode?.hasFocus ?? false) {
+    if (_effectiveFocusNode.hasFocus) {
       if (widget.showKeyboard) {
         _openInputConnection();
       }
@@ -346,7 +346,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     }
     widget.onChanged(_chips.toList(growable: false));
     if (!widget.showKeyboard) {
-      _focusNode?.unfocus();
+      _effectiveFocusNode.unfocus();
     }
   }
 
@@ -543,7 +543,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     );
 
     return RawKeyboardListener(
-      focusNode: _focusNode ?? FocusNode(),
+      focusNode: _effectiveFocusNode,
       onKey: (event) {
         final str = currentTextEditingValue.text;
         // seems like the browser handles backspace already, so doing the same

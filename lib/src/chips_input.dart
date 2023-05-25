@@ -454,7 +454,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     if (_textInputConnection?.attached ?? false) {
       _textInputConnection?.setEditingState(_value);
     }
-    _textInputConnection?.show();
   }
 
   @override

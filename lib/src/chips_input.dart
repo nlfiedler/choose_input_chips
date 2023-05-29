@@ -454,6 +454,12 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     if (_textInputConnection?.attached ?? false) {
       _textInputConnection?.setEditingState(_value);
     }
+    //
+    // Showing the text input will display the on-screen keyboard even if the
+    // widget does not have focus. However, not showing the input means the
+    // keyboard input on iOS will close the keyboard on each key press.
+    //
+    // _textInputConnection?.show();
   }
 
   @override

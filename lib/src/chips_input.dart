@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -457,9 +458,12 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     //
     // Showing the text input will display the on-screen keyboard even if the
     // widget does not have focus. However, not showing the input means the
-    // keyboard input on iOS will close the keyboard on each key press.
+    // keyboard will disappear on iOS with each key press. A better solution
+    // would be nice.
     //
-    // _textInputConnection?.show();
+    if (Platform.isIOS) {
+      _textInputConnection?.show();
+    }
   }
 
   @override

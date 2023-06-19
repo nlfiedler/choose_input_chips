@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This file follows the convention described at
 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.1.1] - 2023-06-19
+### Fixed
+- BurningAXE: do not show the on-screen keyboard on widget init.
+
 ## [1.1.0] - 2023-03-25
 ### Fixed
 - Backspace on browser would delete two values at once.

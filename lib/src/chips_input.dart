@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:io' show Platform;
+import 'dart:math';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'suggestions_box_controller.dart';
 import 'text_cursor.dart';
@@ -461,7 +461,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     // keyboard will disappear on iOS with each key press. A better solution
     // would be nice.
     //
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       _textInputConnection?.show();
     }
   }

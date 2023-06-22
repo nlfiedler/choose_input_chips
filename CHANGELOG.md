@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This file follows the convention described at
 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.1.2] - 2023-06-21
+### Fixed
+- sarbogast: fixed failure on web due to bug fix in previous release.
+
 ## [1.1.1] - 2023-06-19
 ### Fixed
 - BurningAXE: do not show the on-screen keyboard on widget init.

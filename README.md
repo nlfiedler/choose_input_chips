@@ -10,7 +10,7 @@ Edit your package's `pubspec.yaml` like so and then run `flutter pub get`:
 
 ```
 dependencies:
-  choose_input_chips: ^1.1.1
+  choose_input_chips: ^1.1.2
 ```
 
 ### Import

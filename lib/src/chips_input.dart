@@ -461,9 +461,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
     // keyboard will disappear on iOS with each key press. A better solution
     // would be nice.
     //
-    if (!kIsWeb && Platform.isIOS) {
-      _textInputConnection?.show();
-    }
+    // if (!kIsWeb && Platform.isIOS) {
+    //   _textInputConnection?.show();
+    // }
   }
 
   @override

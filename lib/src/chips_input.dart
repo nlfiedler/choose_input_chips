@@ -341,7 +341,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
       setState(() => _suggestions = null);
       _suggestionsStreamController.add(_suggestions);
       if (_hasReachedMaxChips) _suggestionsBoxController.close();
-      widget.onChanged(_chips.toList(growable: false));
     } else {
       _suggestionsBoxController.close();
     }

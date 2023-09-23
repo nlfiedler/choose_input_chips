@@ -1,6 +1,6 @@
 name: choose_input_chips
 description: Build form fields with multiple values and text completion.
-version: 1.1.2
+version: 1.1.3
 homepage: https://github.com/nlfiedler/choose_input_chips
 
 environment:

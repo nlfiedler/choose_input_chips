@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This file follows the convention described at
 [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.1.3] - 2023-09-22
+### Fixed
+- Removed redundant call to `onChanged()` from `selectSuggestion()`.
+
 ## [1.1.2] - 2023-06-21
 ### Fixed
 - sarbogast: fixed failure on web due to bug fix in previous release.

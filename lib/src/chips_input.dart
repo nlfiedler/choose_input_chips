@@ -295,6 +295,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data!.isNotEmpty) {
               final suggestionsListView = Material(
+                color:Colors.transparent,
                 elevation: widget.suggestionsBoxElevation,
                 child: Container(
                         padding:widget.suggestionsContainerPadding,

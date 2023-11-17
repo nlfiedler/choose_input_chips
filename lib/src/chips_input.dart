@@ -69,6 +69,10 @@ class ChipsInput<T> extends StatefulWidget {
     this.initialSuggestions,
     this.suggestionsBoxElevation = 0,
     this.suggestionsBoxDecoration = const BoxDecoration(),
+    this.suggestionsContainerPadding = EdgeInsets.zero,
+    this.suggestionsContainerMargin = EdgeInsets.zero,
+    this.suggestionsContainerDecoration = const BoxDecoration(),
+    this.suggestionsContainerClipBehavior = Clip.none,
     this.showKeyboard = true,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
@@ -290,7 +294,12 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
                   ),
                   child: DecoratedBox(
                     decoration: widget.suggestionsBoxDecoration,
-                    child: ListView.builder(
+                    child: Container(
+                        padding:widget.suggestionsContainerPadding,
+                        margin:widget.suggestionsContainerPadding,
+                        decoration:widget.suggestionsContainerDecoration,
+                        clipBehavior:widget.suggestionsContainerClipBehavior,
+                        child:ListView.builder(
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: snapshot.data!.length,
@@ -303,6 +312,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
                               )
                             : Container();
                       },
+                    ),
                     ),
                   ),
                 ),

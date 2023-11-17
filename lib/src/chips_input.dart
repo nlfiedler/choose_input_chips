@@ -296,7 +296,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
                     decoration: widget.suggestionsBoxDecoration,
                     child: Container(
                         padding:widget.suggestionsContainerPadding,
-                        margin:widget.suggestionsContainerPadding,
+                        margin:widget.suggestionsContainerMargin,
                         decoration:widget.suggestionsContainerDecoration,
                         clipBehavior:widget.suggestionsContainerClipBehavior,
                         child:ListView.builder(

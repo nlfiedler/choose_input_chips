@@ -68,7 +68,6 @@ class ChipsInput<T> extends StatefulWidget {
     this.userFocusNode,
     this.initialSuggestions,
     this.suggestionsBoxElevation = 0,
-    this.suggestionsBoxDecoration = const BoxDecoration(),
     this.suggestionsContainerPadding = EdgeInsets.zero,
     this.suggestionsContainerMargin = EdgeInsets.zero,
     this.suggestionsContainerDecoration = const BoxDecoration(),
@@ -144,9 +143,6 @@ class ChipsInput<T> extends StatefulWidget {
 
   /// Passed to `Material` as the `elevation` value for the overlay.
   final double suggestionsBoxElevation;
-
-  /// Decoration for the suggestions overlay.
-  final BoxDecoration suggestionsBoxDecoration;
 
   /// Padding for the suggestions overlay container.
   final EdgeInsets suggestionsContainerPadding;

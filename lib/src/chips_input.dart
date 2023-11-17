@@ -148,6 +148,18 @@ class ChipsInput<T> extends StatefulWidget {
   /// Decoration for the suggestions overlay.
   final BoxDecoration suggestionsBoxDecoration;
 
+  /// Padding for the suggestions overlay container.
+  final EdgeInsets suggestionsContainerPadding;
+
+  /// Margin for the suggestions overlay container.
+  final EdgeInsets suggestionsContainerMargin;
+
+  /// Decoration for the suggestions overlay container.
+  final BoxDecoration suggestionsContainerDecoration;
+
+  /// ClipBehavior for the suggestions overlay container.
+  final Clip suggestionsContainerClipBehavior;
+    
   /// Defines the keyboard focus for this widget.
   final FocusNode? userFocusNode;
 
@@ -288,18 +300,15 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
             if (snapshot.hasData && snapshot.data!.isNotEmpty) {
               final suggestionsListView = Material(
                 elevation: widget.suggestionsBoxElevation,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: suggestionBoxHeight,
-                  ),
-                  child: DecoratedBox(
-                    decoration: widget.suggestionsBoxDecoration,
-                    child: Container(
+                child: Container(
                         padding:widget.suggestionsContainerPadding,
                         margin:widget.suggestionsContainerMargin,
                         decoration:widget.suggestionsContainerDecoration,
                         clipBehavior:widget.suggestionsContainerClipBehavior,
-                        child:ListView.builder(
+                        constraints: BoxConstraints(
+                            maxHeight: suggestionBoxHeight,
+                          ),
+                      child:ListView.builder(
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: snapshot.data!.length,
@@ -313,9 +322,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
                             : Container();
                       },
                     ),
-                    ),
                   ),
-                ),
               );
               return Positioned(
                 width: size.width,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -72,6 +73,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.suggestionsContainerMargin = EdgeInsets.zero,
     this.suggestionsContainerDecoration = const BoxDecoration(),
     this.suggestionsContainerClipBehavior = Clip.none,
+    this.suggestionsBoxBlur = 0.0,
     this.showKeyboard = true,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
@@ -155,6 +157,9 @@ class ChipsInput<T> extends StatefulWidget {
 
   /// ClipBehavior for the suggestions overlay container.
   final Clip suggestionsContainerClipBehavior;
+
+  /// Blur amount for the suggestions box.  If 0, then no blur.
+  final double suggestionsBoxBlur;
     
   /// Defines the keyboard focus for this widget.
   final FocusNode? userFocusNode;

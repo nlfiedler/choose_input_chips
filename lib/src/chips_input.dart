@@ -74,6 +74,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.suggestionsContainerDecoration = const BoxDecoration(),
     this.suggestionsContainerClipBehavior = Clip.none,
     this.suggestionsBoxBlur = 0.0,
+    this.suggestionsBoxBorderRadius = 0.0,
     this.showKeyboard = true,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
@@ -160,6 +161,9 @@ class ChipsInput<T> extends StatefulWidget {
 
   /// Blur amount for the suggestions box.  If 0, then no blur.
   final double suggestionsBoxBlur;
+
+  /// BorderRadius for the suggestions box.  If 0, then no curve.
+  final double suggestionsBoxBorderRadius;
     
   /// Defines the keyboard focus for this widget.
   final FocusNode? userFocusNode;
@@ -302,28 +306,41 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
               final suggestionsListView = Material(
                 color:Colors.transparent,
                 elevation: widget.suggestionsBoxElevation,
-                child: Container(
-                        padding:widget.suggestionsContainerPadding,
-                        margin:widget.suggestionsContainerMargin,
-                        decoration:widget.suggestionsContainerDecoration,
-                        clipBehavior:widget.suggestionsContainerClipBehavior,
-                        constraints: BoxConstraints(
-                            maxHeight: suggestionBoxHeight,
-                          ),
-                      child:ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return _suggestions != null
-                            ? widget.suggestionBuilder(
-                                context,
-                                this,
-                                _suggestions![index] as T,
-                              )
-                            : Container();
-                      },
-                    ),
+                child: 
+                  Container(
+                                margin:widget.suggestionsContainerMargin,
+                                constraints: BoxConstraints(
+                                    maxHeight: suggestionBoxHeight,
+                                  ),
+                                decoration:BoxDecoration(borderRadius: BorderRadius.circular(widget.suggestionsBoxBorderRadius)),
+                                clipBehavior:widget.suggestionsContainerClipBehavior,
+                        child:ClipRRect(
+                            borderRadius: BorderRadius.circular(widget.suggestionsBoxBorderRadius),
+                            child:BackdropFilter(
+                                filter:ImageFilter.blur(
+                                  sigmaX: widget.suggestionsBoxBlur,
+                                  sigmaY: widget.suggestionsBoxBlur),
+                                child:
+                                  Container(
+                                        padding:widget.suggestionsContainerPadding,
+                                        decoration:widget.suggestionsContainerDecoration,
+                                      child:ListView.builder(
+                                      shrinkWrap: true,
+                                      padding: EdgeInsets.zero,
+                                      itemCount: snapshot.data!.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return _suggestions != null
+                                            ? widget.suggestionBuilder(
+                                                context,
+                                                this,
+                                                _suggestions![index] as T,
+                                              )
+                                            : Container();
+                                      },
+                                    ),
+                                  ),
+                      ),
+                      ),
                   ),
               );
               return Positioned(

@@ -75,6 +75,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.suggestionsContainerClipBehavior = Clip.none,
     this.suggestionsBoxBlur = 0.0,
     this.suggestionsBoxBorderRadius = 0.0,
+    this.suggestionsBoxBorder = const Border(),
     this.showKeyboard = true,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
@@ -164,6 +165,9 @@ class ChipsInput<T> extends StatefulWidget {
 
   /// BorderRadius for the suggestions box.  If 0, then no curve.
   final double suggestionsBoxBorderRadius;
+
+  /// Border for the suggestions box. 
+  final Border suggestionsBoxBorder;
     
   /// Defines the keyboard focus for this widget.
   final FocusNode? userFocusNode;
@@ -312,7 +316,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>> with TextInputClient {
                                 constraints: BoxConstraints(
                                     maxHeight: suggestionBoxHeight,
                                   ),
-                                decoration:BoxDecoration(borderRadius: BorderRadius.circular(widget.suggestionsBoxBorderRadius)),
+                                decoration:BoxDecoration(
+                                    borderRadius: BorderRadius.circular(widget.suggestionsBoxBorderRadius),
+                                    border:widget.suggestionsBoxBorder,
+                                ),
                                 clipBehavior:widget.suggestionsContainerClipBehavior,
                         child:ClipRRect(
                             borderRadius: BorderRadius.circular(widget.suggestionsBoxBorderRadius),
